@@ -6,7 +6,6 @@ import json
 import winrt.windows.devices.geolocation as wdg
 import asyncio
 
-locator = wdg.Geolocator()
 
 BROKER_ADDRESS = "demo.thingsboard.io"
 PORT = 1883
@@ -37,12 +36,14 @@ def connected(client, usedata, flags, rc):
         print("Connection is failed")
 
 
+locator = wdg.Geolocator()
+
+
 async def request_access_location():
     await locator.request_access_async()
 
 
 async def get_current_location():
-    locator = wdg.Geolocator()
     pos = await locator.get_geoposition_async()
     return pos.coordinate.latitude, pos.coordinate.longitude
 
